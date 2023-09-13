@@ -45,9 +45,10 @@ To generate log files:
 ```
 make log name=example.log size=0.1
 ```
-Parameters (required):
-- name: Name of the log file
-- size: Size of the log file in GB
+or
+```
+TODO: ALTERNATIVE FOR WINDOWS USERS with generate_log.py
+```
 
 To run unit tests:
 ```
