@@ -8,7 +8,7 @@ A RESTful API to fetch and filter logs from /var/log of Unix-based servers on-de
 ## Installation
 1. Create a virtual environment (optional)
 ```
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 ```
 2. Install the required packages
