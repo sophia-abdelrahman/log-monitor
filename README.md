@@ -43,7 +43,7 @@ Visit http://localhost:5000 in your web browser to access a basic user interface
 ## Testing
 To generate log files:
 ```
-make log name=example.log size=0.5
+make log name=example.log size=0.1
 ```
 Parameters (required):
 - name: Name of the log file
