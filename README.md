@@ -35,26 +35,23 @@ Query Parameters:
 
 - filename: Name of the log file to retrieve (e.g., example.log).
 - keyword (optional): Keyword to filter log lines (e.g., DEBUG).
-- last_n (optional): Number of most recent log lines to retrieve. Default is 10.
+- last_n (optional): Number of most recent log lines to retrieve (Default is 10).
 
 ### UI
 Access a basic user interface for interacting with the log monitor:
 ```
 http://localhost:5000/logs
 ```
-or
-```
-http://127.0.0.1:5000/logs
-```
 
 ## Testing
 To generate log files:
 ```
-make log name=example.log size=0.1
+make log name=example.log size=0.1 # custom parameters
 ```
 or
 ```
-TODO: Alterative for windows users with generate_log.py
+chmod +x run_generate_log.sh # initialize
+./run_generate_log.sh # default parameters
 ```
 
 To run unit tests:
@@ -66,4 +63,9 @@ python -m unittest test_views.py
 To test with curl:
 ```
 curl "http://localhost:5000/logs?filename=EXAMPLE.log&keyword=ERROR&last_n=10"
+```
+
+To remove log files:
+```
+make clean
 ```
