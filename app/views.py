@@ -2,10 +2,10 @@
 Define the routes and endpoints of the app
 """
 import logging
-from flask import request, jsonify
+from flask import render_template, request, jsonify, redirect
 from .utils import retrieve_logs
 from . import app
-from config import LOG_DIR, DEFAULT_LAST_N
+from config import LOG_DIR, LOG_FILE_NAME
 from .errors import FileNameError, KeywordError, LastNError
 
 
@@ -27,9 +27,9 @@ def get_logs():
         JSON response containing log lines or an error message.
     """
     params = {
-        "filename": request.args.get('filename', None),
+        "filename": request.args.get('filename', LOG_FILE_NAME),
         "keyword": request.args.get('keyword', None),
-        "last_n": request.args.get('last_n', DEFAULT_LAST_N)
+        "last_n": request.args.get('last_n', 10) # Default to 10 if not specified
     }
 
     error_response, error_code = validate_parameters(params)
@@ -47,13 +47,18 @@ def get_logs():
         lines, error = retrieve_logs(params['filename'], params['keyword'], int(params['last_n']))
         if error:
             return jsonify({"error": error}), 404
-        return jsonify({"lines": lines})
+        return render_template("index.html", logs='\n'.join(lines))
     except tuple(exception_to_error.keys()) as caught_exception:
         error_msg, status_code = exception_to_error[type(caught_exception)]
         return jsonify({"error": error_msg}), status_code
     except Exception as e:
         logger.exception(f"An unexpected error occurred: {e}")
         return jsonify({"error": "An unexpected error occurred."}), 500
+
+
+@app.route('/')
+def index():
+    return redirect('/logs')
 
 
 VALIDATORS = {
@@ -66,7 +71,7 @@ VALIDATORS = {
         'error': "Invalid keyword. Ensure it's a string between 1-100 characters."
     },
     'last_n': {
-        'condition': lambda x: (x == DEFAULT_LAST_N or (isinstance(x, str) and x.isdigit() and int(x) > 0)),
+        'condition': lambda x: (x == 10 or (isinstance(x, str) and x.isdigit() and int(x) > 0)),
         'error': "last_n should be a positive integer."
     }
 }
@@ -74,9 +79,6 @@ VALIDATORS = {
 
 def validate_parameters(params):
     for param, value in params.items():
-        # Check for unexpected parameters
-        if param not in VALIDATORS:
-            return jsonify({"error": f"Unexpected parameter: {param}"}), 400
         # Attempt to retrieve the validator for the parameter. If not found, use an empty dictionary.
         validator = VALIDATORS.get(param, {})
         condition = validator.get('condition')
