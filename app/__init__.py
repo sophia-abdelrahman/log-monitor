@@ -1,9 +1,8 @@
-### Initializes the Flask app and bring together other components ###
-
+"""
+Initialize the Flask app and bring together other components
+"""
 from flask import Flask
 
-# Create a Flask application instance
-app = Flask(__name__)
+app = Flask(__name__) # Create a Flask app instance
 
-# Import routes from the routes.py module
-from app import routes
+from app import views # Import routes from the views.py module (register the routes with the Flask app instance)
