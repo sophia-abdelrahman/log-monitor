@@ -1,1 +1,0 @@
-### Defines the routes/endpoints of the app ###
