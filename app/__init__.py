@@ -1,5 +1,5 @@
 """
-Initialize the Flask app and bring together other components
+Initialize the Flask app
 """
 from flask import Flask
 
