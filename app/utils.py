@@ -58,7 +58,7 @@ def validate_last_n(last_n):
 
 
 def validate_keyword(keyword):
-    if keyword and (not isinstance(keyword, str) or not 0 < len(keyword.strip()) <= 100):
+    if keyword and (not isinstance(keyword, str) or not keyword.strip() or not 0 < len(keyword) <= 100):
         raise KeywordError("Keyword should be a valid string (1-100 characters).")
 
 

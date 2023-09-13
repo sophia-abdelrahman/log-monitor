@@ -16,6 +16,16 @@ logger = logging.getLogger(__name__)
 # Bind the 'get_logs()' view function/endpoint to the '/logs' route for GET requests
 @app.route('/logs', methods=['GET'])
 def get_logs():
+    """
+    Endpoint to get log lines based on the following query parameters:
+
+    - filename: Name of the log file to retrieve.
+    - keyword: Keyword to filter log lines (optional).
+    - last_n: Number of most recent log lines to retrieve (default is 10).
+
+    Returns:
+        JSON response containing log lines or an error message.
+    """
     params = {
         "filename": request.args.get('filename', None),
         "keyword": request.args.get('keyword', None),
