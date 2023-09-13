@@ -58,7 +58,7 @@ def get_logs():
 
 @app.route('/')
 def index():
-    return redirect('/logs')
+    return "Welcome to the log-monitor API!"
 
 
 VALIDATORS = {
