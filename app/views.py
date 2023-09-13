@@ -1,3 +1,6 @@
+"""
+Define the routes and endpoints of the app
+"""
 import logging
 from flask import request, jsonify
 from .utils import retrieve_logs
@@ -10,6 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
+# Bind the 'get_logs()' view function/endpoint to the '/logs' route for GET requests
 @app.route('/logs', methods=['GET'])
 def get_logs():
     params = {
@@ -29,6 +33,7 @@ def get_logs():
     }
 
     try:
+        # Use the utility function to retrieve and filter logs
         lines, error = retrieve_logs(params['filename'], params['keyword'], int(params['last_n']))
         if error:
             return jsonify({"error": error}), 404
