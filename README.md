@@ -46,7 +46,7 @@ http://localhost:5000/logs
 ## Testing
 To generate log files:
 ```
-make log name=example.log size=0.1 # custom parameters
+make log name=sample.log size=0.01 # support for custom parameters
 ```
 or
 ```
