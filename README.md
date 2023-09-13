@@ -38,7 +38,11 @@ Query Parameters:
 - last_n (optional): Number of most recent log lines to retrieve. Default is 10.
 
 ### UI
-Visit http://localhost:5000 in your web browser to access a basic user interface for interacting with the log monitor.
+Access a basic user interface for interacting with the log monitor:
+```
+http://localhost:5000/logs
+http://127.0.0.1:5000/logs
+```
 
 ## Testing
 To generate log files:
@@ -54,4 +58,9 @@ To run unit tests:
 ```
 python -m unittest test_utils.py
 python -m unittest test_views.py
+```
+
+To test with curl:
+```
+curl "http://localhost:5000/logs?filename=example.log&keyword=ERROR&last_n=5"
 ```
