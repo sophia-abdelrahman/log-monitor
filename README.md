@@ -41,6 +41,9 @@ Query Parameters:
 Access a basic user interface for interacting with the log monitor:
 ```
 http://localhost:5000/logs
+```
+or
+```
 http://127.0.0.1:5000/logs
 ```
 
@@ -51,7 +54,7 @@ make log name=example.log size=0.1
 ```
 or
 ```
-TODO: ALTERNATIVE FOR WINDOWS USERS with generate_log.py
+TODO: Alterative for windows users with generate_log.py
 ```
 
 To run unit tests:
@@ -62,5 +65,5 @@ python -m unittest test_views.py
 
 To test with curl:
 ```
-curl "http://localhost:5000/logs?filename=example.log&keyword=ERROR&last_n=5"
+curl "http://localhost:5000/logs?filename=EXAMPLE.log&keyword=ERROR&last_n=10"
 ```
