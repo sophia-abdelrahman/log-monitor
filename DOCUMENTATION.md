@@ -39,4 +39,4 @@ Note: This documentation outlines the main functional and testing files of the p
 - Simulates requests and checks outcomes
 
 ### Usage
-Refer to README.md for detailed setup and usage instructions.
+- Refer to README.md for detailed setup and usage instructions

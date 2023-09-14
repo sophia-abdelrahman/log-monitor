@@ -69,3 +69,5 @@ To remove log files:
 ```
 make clean
 ```
+## Documentation
+- For a detailed breakdown of the code structure and design, see DOCUMENTATION.md
