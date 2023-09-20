@@ -32,8 +32,6 @@ def get_logs():
         "last_n": request.args.get('last_n', 10) # Default to 10 if not specified
     }
 
-    print(f"Received parameters: {params}") #DELETEME LATER
-
     error_response, error_code = validate_parameters(params)
     if error_response:
         return error_response, error_code
