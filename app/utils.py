@@ -2,7 +2,6 @@
 Utility functions, i.e., reading and filtering log files
 """
 import os
-import io
 import logging
 from config import LOG_DIR
 from .errors import FileNameError, KeywordError, LastNError
@@ -33,18 +32,23 @@ def retrieve_logs(filename, keyword=None, last_n=10):
 
     with open(log_path, 'rb') as f:
         f.seek(0, os.SEEK_END)
-        position, chunk_size, data, lines = f.tell(), 4096, b"", []
+        position, chunk_size, data, lines, filtered_lines = f.tell(), 4096, b"", [], []
 
-        while position > 0 and len(lines) < last_n:
+        while position > 0 and len(filtered_lines) < last_n:
             position = max(position - chunk_size, 0)
             f.seek(position)
             data = f.read(chunk_size) + data
             lines = data.splitlines()
 
-        if keyword:
-            lines = [line for line in lines if keyword.encode() in line]
+            # If keyword is specified, filter lines
+            if keyword:
+                filtered_lines = [line for line in lines if keyword.encode() in line]
+            else:
+                filtered_lines = lines
 
-    return [line.decode('utf-8') for line in lines[-last_n:]][::-1], None
+        # Decode the lines at the end
+        final_lines = [line.decode('utf-8') for line in filtered_lines[-last_n:]][::-1]
+        return final_lines, None
 
 
 def validate_filename(filename):

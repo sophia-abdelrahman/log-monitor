@@ -1,5 +1,4 @@
 import unittest
-import os
 from app.utils import validate_filename, validate_keyword, validate_last_n
 from app.errors import FileNameError, KeywordError, LastNError
 from config import LOG_FILE_PATH

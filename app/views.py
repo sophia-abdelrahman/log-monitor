@@ -2,10 +2,10 @@
 Define the routes and endpoints of the app
 """
 import logging
-from flask import render_template, request, jsonify, redirect
+from flask import render_template, request, jsonify
 from .utils import retrieve_logs
 from . import app
-from config import LOG_DIR, LOG_FILE_NAME
+from config import LOG_FILE_NAME
 from .errors import FileNameError, KeywordError, LastNError
 
 
@@ -32,6 +32,8 @@ def get_logs():
         "last_n": request.args.get('last_n', 10) # Default to 10 if not specified
     }
 
+    print(f"Received parameters: {params}") #DELETEME LATER
+
     error_response, error_code = validate_parameters(params)
     if error_response:
         return error_response, error_code
@@ -47,7 +49,7 @@ def get_logs():
         lines, error = retrieve_logs(params['filename'], params['keyword'], int(params['last_n']))
         if error:
             return jsonify({"error": error}), 404
-        return render_template("index.html", logs='\n'.join(lines))
+        return render_template("logs.html", logs='\n'.join(lines), num_lines=len(lines))
     except tuple(exception_to_error.keys()) as caught_exception:
         error_msg, status_code = exception_to_error[type(caught_exception)]
         return jsonify({"error": error_msg}), status_code
